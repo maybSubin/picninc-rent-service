@@ -7,7 +7,7 @@
 **https://picninc-rent-service-production.up.railway.app**
 
 - 용품 목록: https://picninc-rent-service-production.up.railway.app/api/items
-- Postman 컬렉션의 `baseUrl` 변수를 위 주소로 바꾸면 배포 서버로 요청할 수 있습니다.
+- Postman 컬렉션의 `baseUrl` 기본값이 위 주소입니다. 로컬에서 테스트할 때는 `http://localhost:8080`으로 바꿔 주세요.
 
 ## 사용 기술
 
