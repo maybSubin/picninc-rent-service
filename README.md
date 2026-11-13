@@ -137,9 +137,42 @@ H2 인메모리 DB로 실행되며 MySQL·MongoDB 없이 동작합니다.
 
 ## 엔티티 설계 (MySQL / JPA)
 
+```mermaid
+erDiagram
+    ITEM ||--o{ RESERVATION_ITEM : "예약됨"
+    RESERVATION ||--|{ RESERVATION_ITEM : "포함"
+
+    ITEM {
+        BIGINT id PK
+        VARCHAR name "용품 이름"
+        VARCHAR type "BASIC / OPTION"
+        INT price "1일 대여 가격"
+        INT stock "보유 수량"
+        VARCHAR description
+    }
+    RESERVATION {
+        BIGINT id PK
+        VARCHAR customer_name
+        VARCHAR phone
+        DATE use_date "이용 날짜"
+        VARCHAR status "RESERVED / RENTED / RETURNED / CANCELED"
+        INT total_price "총 금액"
+        DATETIME created_at
+        DATETIME canceled_at
+        DATETIME rented_at
+        DATETIME returned_at
+    }
+    RESERVATION_ITEM {
+        BIGINT id PK
+        BIGINT reservation_id FK
+        BIGINT item_id FK
+        INT quantity "수량"
+        INT unit_price "예약 시점 단가"
+        INT subtotal "단가 x 수량"
+    }
 ```
-Item (용품) 1 ──── N ReservationItem (예약 항목) N ──── 1 Reservation (예약)
-```
+
+MongoDB `reservation_logs` 컬렉션은 `reservationId`로 예약과 연결됩니다. (아래 MongoDB 활용 참고)
 
 | 엔티티 | 주요 필드 | 설명 |
 |---|---|---|
