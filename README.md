@@ -2,6 +2,13 @@
 
 텐트 또는 돗자리를 선택하고, 피크닉 테이블·체어·무드등 등의 감성 소품을 추가하여 원하는 날짜에 예약하고 대여할 수 있는 서비스입니다.
 
+## 배포 주소
+
+**https://picninc-rent-service-production.up.railway.app**
+
+- 용품 목록: https://picninc-rent-service-production.up.railway.app/api/items
+- Postman 컬렉션의 `baseUrl` 변수를 위 주소로 바꾸면 배포 서버로 요청할 수 있습니다.
+
 ## 사용 기술
 
 - Java 17
