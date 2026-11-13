@@ -102,6 +102,32 @@ H2 인메모리 DB로 실행되며 MySQL·MongoDB 없이 동작합니다.
 ./gradlew test
 ```
 
+## 배포 (Railway)
+
+`Dockerfile`과 `railway.json`이 포함되어 있어 GitHub 저장소를 연결하면 자동으로 빌드·배포됩니다.
+
+1. [Railway](https://railway.com)에서 **New Project → Deploy from GitHub repo**로 이 저장소를 선택합니다.
+2. 같은 프로젝트에서 **+ Create → Database**로 **MySQL**과 **MongoDB**를 각각 추가합니다.
+3. 앱 서비스의 **Variables**에 아래 값을 등록합니다. (`${{...}}`는 Railway가 DB 접속 정보로 자동 치환합니다.)
+
+   | 변수 | 값 |
+   |---|---|
+   | `DB_URL` | `jdbc:mysql://${{MySQL.MYSQLHOST}}:${{MySQL.MYSQLPORT}}/${{MySQL.MYSQLDATABASE}}?allowPublicKeyRetrieval=true&useSSL=false` |
+   | `DB_USERNAME` | `${{MySQL.MYSQLUSER}}` |
+   | `DB_PASSWORD` | `${{MySQL.MYSQLPASSWORD}}` |
+   | `MONGO_URI` | `${{MongoDB.MONGO_URL}}` |
+
+4. 앱 서비스의 **Settings → Networking → Generate Domain**으로 공개 주소를 발급받습니다.
+5. 발급받은 주소를 Postman 컬렉션의 `baseUrl` 변수에 넣으면 배포된 서버로 요청할 수 있습니다.
+
+| 환경 변수 | 기본값 (로컬) | 설명 |
+|---|---|---|
+| `PORT` | `8080` | Railway가 자동 주입 |
+| `DB_URL` | `jdbc:mysql://localhost:3306/picnic` | MySQL JDBC URL |
+| `DB_USERNAME`, `DB_PASSWORD` | (필수) | MySQL 계정 |
+| `MONGO_URI` | `mongodb://localhost:27017/picnic` | MongoDB 접속 URI |
+| `MONGO_DATABASE` | `picnic` | MongoDB 데이터베이스 이름 |
+
 ## 엔티티 설계 (MySQL / JPA)
 
 ```
